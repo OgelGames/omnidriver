@@ -40,9 +40,14 @@ local wallmounted = {
 }
 
 -- Create reverse rotation tables
-for _,tbl in pairs(facedir) do
+do
+	local tbl = facedir[screwdriver.ROTATE_FACE]
 	for from, to in pairs(tbl[1]) do
 		tbl[-1][to] = from
+	end
+	tbl = facedir[screwdriver.ROTATE_AXIS]
+	for from, to in pairs(tbl[1]) do
+		tbl[-1][from] = tbl[1][(from + 16) % 24]
 	end
 end
 for _,tbl in pairs(wallmounted) do
