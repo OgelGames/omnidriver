@@ -33,6 +33,12 @@ function omnidriver.handler(stack, player, pointed)
 	end
 	local pos = pointed.under
 	local node = minetest.get_node_or_nil(pos)
+	if node and controls.place and not controls.sneak then
+		local def = minetest.registered_nodes[node.name]
+		if def and def.on_rightclick then
+			return def.on_rightclick(pos, node, player, stack, pointed) or stack
+		end
+	end
 	if not node or not omnidriver.can_rotate(pos, node, player) then
 		omnidriver.popup(player, S("This node cannot be rotated"))
 		return stack
