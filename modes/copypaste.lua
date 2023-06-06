@@ -10,16 +10,14 @@ local function handler(pos, node, player, pointed, stack)
 	local meta = stack:get_meta()
 	if controls.place then
 		-- Copy
-		local name = player:get_player_name()
 		if controls.aux1 then
 			meta:set_string("stored_type_b", pt)
 			meta:set_int("stored_value_b", val)
-			minetest.sound_play("omnidriver_rotate_backward", {pos = pos, to_player = name}, true)
 		else
 			meta:set_string("stored_type_a", pt)
 			meta:set_int("stored_value_a", val)
-			minetest.sound_play("omnidriver_rotate_forward", {pos = pos, to_player = name}, true)
 		end
+		minetest.sound_play("omnidriver_copy", {to_player = player:get_player_name()}, true)
 		return
 	elseif controls.dig then
 		-- Paste
