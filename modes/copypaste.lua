@@ -36,20 +36,20 @@ local function handler(pos, node, player, pointed, stack)
 		if pt == spt then
 			val = sval
 		elseif pt == "facedir" and spt == "colorfacedir" then
-			val = spt % 32
+			val = sval % 32
 		elseif pt == "colorfacedir" and spt == "facedir" then
 			local color = val - (val % 32)
-			val = spt + color
+			val = sval + color
 		elseif pt == "wallmounted" and spt == "colorwallmounted" then
-			val = spt % 8
+			val = sval % 8
 		elseif pt == "colorwallmounted" and spt == "wallmounted" then
 			local color = val - (val % 8)
-			val = spt + color
+			val = sval + color
 		elseif pt == "4dir" and spt == "color4dir" then
-			val = spt % 4
+			val = sval % 4
 		elseif pt == "color4dir" and spt == "4dir" then
 			local color = val - (val % 4)
-			val = spt + color
+			val = sval + color
 		else
 			omnidriver.popup(player, S("Cannot paste @1 rotation to @2 node", spt, pt))
 			return
