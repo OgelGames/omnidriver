@@ -7,7 +7,7 @@
 
 ## Overview
 
-It's the ultimate screwdriver.
+It's the ultimate screwdriver. You'll never need another screwdriver.
 
 ![Overview Screenshot](screenshot.png?raw=true "Overview Screenshot")
 
