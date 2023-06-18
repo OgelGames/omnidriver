@@ -20,7 +20,7 @@ end
 
 if minetest.get_modpath("technic") then
 	core = "technic:control_logic_unit"
-	
+
 	minetest.register_craft({
 		output = "omnidriver:omnidriver",
 		recipe = {

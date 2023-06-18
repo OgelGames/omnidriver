@@ -4,12 +4,11 @@ globals = {
 	"omnidriver",
 	"vector.round",
 	"math.round",
+	"screwdriver",
 }
 
 read_globals = {
 	"minetest",
 	"vector",
 	"math.sign",
-	
-	"screwdriver",
 }
