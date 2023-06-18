@@ -66,10 +66,13 @@ This mode is used to copy rotation values between nodes. It only works to copy b
 
 ## Dependencies
 
-**Required**
+**Optional**
 
 - `default` (included in [Minetest Game](https://github.com/minetest/minetest_game))
-- `screwdriver` (included in [Minetest Game](https://github.com/minetest/minetest_game))
+- `screwdriver` (included in [Minetest Game](https://github.com/minetest/minetest_game) or [Mineclone 2](https://content.minetest.net/packages/Wuzzy/mineclone2/))
+- `mcl_core` (included in [Mineclone 2](https://content.minetest.net/packages/Wuzzy/mineclone2/))
+- [`basic_materials`](https://github.com/mt-mods/basic_materials)
+- [`technic`](https://github.com/mt-mods/technic)
 
 ## Installation
 

@@ -71,11 +71,3 @@ minetest.register_tool("omnidriver:omnidriver", {
 	on_place = omnidriver.handler,
 	on_secondary_use = omnidriver.handler,
 })
-
-minetest.register_craft({
-	output = "omnidriver:omnidriver",
-	recipe = {
-		{"default:diamond"},
-		{"screwdriver:screwdriver"},
-	}
-})

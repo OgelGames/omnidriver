@@ -23,6 +23,22 @@ if not math.round then
 	end
 end
 
+-- Some mods require the screwdriver mod to exist
+-- We can't pretend to be the mod, but we can add the global variables
+if not minetest.global_exists("screwdriver") then
+	screwdriver = {}
+	screwdriver.ROTATE_FACE = 1
+	screwdriver.ROTATE_AXIS = 2
+	screwdriver.disallow = function(pos, node, user, mode, new_param2)
+		return false
+	end
+	screwdriver.rotate_simple = function(pos, node, user, mode, new_param2)
+		if mode ~= 1 then
+			return false
+		end
+	end
+end
+
 -- Not an API
 dofile(MP.."/common.lua")
 dofile(MP.."/popup.lua")
@@ -37,3 +53,4 @@ omnidriver.modes = {
 
 -- Tool and craft recipes
 dofile(MP.."/tool.lua")
+dofile(MP.."/crafting.lua")

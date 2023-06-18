@@ -67,6 +67,9 @@ function omnidriver.rotate_node(pos, node, player, param2)
 	end
 	node.param2 = param2
 	minetest.swap_node(pos, node)
+	if def.after_rotate then
+		def.after_rotate(pos)
+	end
 	return true
 end
 
