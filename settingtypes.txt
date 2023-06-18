@@ -1,0 +1,2 @@
+# The number of times the omnidriver can be used before breaking. Default 0 (infinite uses).
+omnidriver_tool_uses (Omnidriver uses) int 0
