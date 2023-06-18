@@ -43,6 +43,28 @@ function omnidriver.rotate_node(pos, node, player, param2)
 			return true
 		end
 	end
+	if def.groups.attached_node and def.groups.attached_node ~= 0 then
+		local attached = def.groups.attached_node
+		local dir = vector.new(0, -1, 0)
+		if attached == 4 then
+			dir.y = 1
+		elseif attached == 2 then
+			if def.paramtype2 == "facedir" or def.paramtype2 == "colorfacedir" then
+				dir = minetest.facedir_to_dir(param2)
+			elseif def.paramtype2 == "4dir" or def.paramtype2 == "color4dir" then
+				dir = minetest.fourdir_to_dir(param2)
+			else
+				return false
+			end
+		elseif def.paramtype2 == "wallmounted" or def.paramtype2 == "colorwallmounted" then
+			dir = minetest.wallmounted_to_dir(param2)
+		end
+		local other = minetest.get_node(vector.add(pos, dir))
+		local other_def = minetest.registered_nodes[other.name]
+		if other_def and not other_def.walkable then
+			return false
+		end
+	end
 	node.param2 = param2
 	minetest.swap_node(pos, node)
 	return true
@@ -104,33 +126,6 @@ function omnidriver.rotate_wallmounted(param2, direction, axis)
 		return param2
 	end
 	return rotate_wallmounted[axis][direction][rotation] + color
-end
-
---------------------------------------------------
-
-function omnidriver.is_attached(pos, rotation)
-	local dir = minetest.wallmounted_to_dir(rotation)
-	local other = minetest.get_node(vector.add(pos, dir))
-	local def = minetest.registered_nodes[other.name]
-	if def and not def.walkable then
-		return false
-	end
-	return true
-end
-
-function omnidriver.rotate_attached(param2, direction, pos)
-	if direction ~= 1 and direction ~= -1 then
-		direction = 1
-	end
-	local rotation = param2 % 8
-	local color = param2 - rotation
-	for _=1, 5 do
-		rotation = (rotation + direction + 6) % 6
-		if omnidriver.is_attached(pos, rotation) then
-			return rotation + color
-		end
-	end
-	return param2
 end
 
 --------------------------------------------------

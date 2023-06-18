@@ -67,15 +67,6 @@ local function rotate_wallmounted(node, direction, mode, pos)
 	local rotation = node.param2 % 8
 	local color = node.param2 - rotation
 	rotation = wallmounted[mode][direction][rotation] or 0
-	if minetest.get_item_group(node.name, "attached_node") ~= 0 then
-		for i = 1, 5 do
-			if omnidriver.is_attached(pos, rotation) then
-				return rotation + color
-			end
-			rotation = wallmounted[mode][direction][rotation] or 0
-		end
-		return node.param2
-	end
 	return rotation + color
 end
 

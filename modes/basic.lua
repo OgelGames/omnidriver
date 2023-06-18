@@ -17,10 +17,6 @@ local function handler(pos, node, player, pointed, stack)
 	if pt == "4dir" or pt == "color4dir" then
 		return omnidriver.rotate_4dir(node.param2, direction)
 	end
-	if pt == "wallmounted" or pt == "colorwallmounted"
-			and minetest.get_item_group(node.name, "attached_node") ~= 0 then
-		return omnidriver.rotate_attached(node.param2, direction, pos)
-	end
 	-- Handle axis rotation
 	local axis = "y"
 	if controls.place then
