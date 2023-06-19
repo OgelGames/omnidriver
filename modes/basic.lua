@@ -24,8 +24,10 @@ local function handler(pos, node, player, pointed, stack)
 		local dir = minetest.yaw_to_dir(player:get_look_horizontal())
 		if math.abs(dir.x) > math.abs(dir.z) then
 			axis = "z"
+			direction = math.sign(dir.x) * direction
 		else
 			axis = "x"
+			direction = math.sign(dir.z) * direction * -1
 		end
 	end
 	if pt == "facedir" or pt == "colorfacedir" then
