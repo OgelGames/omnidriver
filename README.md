@@ -44,7 +44,7 @@ This is the simplest mode to use, and the most reliable.
 
 This mode will be familiar to anyone that has used the [`rhotator`](https://content.minetest.net/packages/entuland/rhotator/) or [`screwdriver2`](https://content.minetest.net/packages/12Me21/screwdriver2/) mods, as it functions identically. It rotates based on what part of the node you are looking at.
 
-- Left-click to "push" the edge you are looking at away from you.
+- Left-click to "push" the nearest edge of the face you are looking at.
 - Right-click to rotate the face you are looking at clockwise.
 - Hold the special key (default `E`) to reverse direction.
 
