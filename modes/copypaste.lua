@@ -59,6 +59,7 @@ local function handler(pos, node, player, pointed, stack)
 end
 
 return {
+	name = "copypaste",
 	description = description,
 	handler = handler,
 }
