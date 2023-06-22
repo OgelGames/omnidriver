@@ -1,0 +1,16 @@
+# textdomain: omnidriver
+
+Omnidriver (@1)=
+Mode @1=
+Omnidriver mode changed to @1=
+Invalid target=
+This node cannot be rotated=
+Unable to rotate node=
+Rotate Vertical / Rotate Horizontal=
+Push Edge / Rotate Pointed=
+Rotate Face / Rotate Axis=
+Paste / Copy=
+Cannot copy rotation from this node=
+Cannot paste rotation to this node=
+No rotation stored=
+Cannot paste @1 rotation to @2 node=
