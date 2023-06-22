@@ -10,12 +10,19 @@ local rotatable = {
 	["color4dir"] = true,
 }
 
-function omnidriver.can_rotate(pos, node, player)
-	local def = minetest.registered_nodes[node.name]
-	if not def or not def.paramtype2 or not rotatable[def.paramtype2] then
+function omnidriver.is_rotatable(paramtype2)
+	if not paramtype2 then
 		return false
 	end
-	if def.on_rotate == false or def.on_rotate == screwdriver.disallow then
+	return rotatable[paramtype2] == true
+end
+
+function omnidriver.can_rotate(pos, node, player)
+	local def = minetest.registered_nodes[node.name]
+	if not def or def.on_rotate == false or def.on_rotate == screwdriver.disallow then
+		return false
+	end
+	if type(def.on_rotate) ~= "function" and not omnidriver.is_rotatable(def.paramtype2) then
 		return false
 	end
 	local player_name = player and player:get_player_name() or ""
@@ -29,9 +36,12 @@ function omnidriver.rotate_node(pos, node, player, param2)
 	local def = minetest.registered_nodes[node.name]
 	if def.on_rotate then
 		local mode = 1
-		if def.paramtype2 == "facedir" or def.paramtype2 == "colorfacedir" then
-			local rotation = param2 % 32
-			if rotation > 3 then
+		if param2 == node.param2 then
+			if player:get_player_control().place then
+				mode = 2
+			end
+		elseif def.paramtype2 == "facedir" or def.paramtype2 == "colorfacedir" then
+			if param2 % 32 > 3 then
 				mode = 2
 			end
 		end
@@ -65,8 +75,10 @@ function omnidriver.rotate_node(pos, node, player, param2)
 			return false
 		end
 	end
-	node.param2 = param2
-	minetest.swap_node(pos, node)
+	if param2 ~= node.param2 then
+		node.param2 = param2
+		minetest.swap_node(pos, node)
+	end
 	if def.after_rotate then
 		def.after_rotate(pos)
 	end

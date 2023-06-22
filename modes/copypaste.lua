@@ -10,6 +10,10 @@ local function handler(pos, node, player, pointed, stack)
 	local meta = stack:get_meta()
 	if controls.place then
 		-- Copy
+		if not omnidriver.is_rotatable(pt) then
+			omnidriver.popup(player, S("Cannot copy rotation from this node"))
+			return
+		end
 		if controls.aux1 then
 			meta:set_string("stored_type_b", pt)
 			meta:set_int("stored_value_b", val)
@@ -21,6 +25,10 @@ local function handler(pos, node, player, pointed, stack)
 		return
 	elseif controls.dig then
 		-- Paste
+		if not omnidriver.is_rotatable(pt) then
+			omnidriver.popup(player, S("Cannot paste rotation to this node"))
+			return
+		end
 		local spt, sval
 		if controls.aux1 then
 			spt = meta:get("stored_type_b")

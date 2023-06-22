@@ -20,9 +20,12 @@ local function raycast_pointed(player, pointed)
 end
 
 local function handler(pos, node, player, pointed, stack)
+	local pt = minetest.registered_nodes[node.name].paramtype2
+	if not omnidriver.is_rotatable(pt) then
+		return node.param2
+	end
 	local controls = player:get_player_control()
 	local direction = controls.aux1 and -1 or 1
-	local pt = minetest.registered_nodes[node.name].paramtype2
 	-- Handle simple rotation types
 	if pt == "degrotate" then
 		return omnidriver.rotate_degrotate(node.param2, direction, controls.place)

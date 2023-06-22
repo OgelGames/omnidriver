@@ -33,24 +33,28 @@ function omnidriver.handler(stack, player, pointed)
 	end
 	local pos = pointed.under
 	local node = minetest.get_node_or_nil(pos)
-	if node and controls.place and not controls.sneak then
+	if not node then
+		omnidriver.popup(player, S("Invalid target"))
+		return stack
+	end
+	if controls.place and not controls.sneak then
 		local def = minetest.registered_nodes[node.name]
 		if def and def.on_rightclick then
 			return def.on_rightclick(pos, node, player, stack, pointed) or stack
 		end
 	end
-	if not node or not omnidriver.can_rotate(pos, node, player) then
+	local param2
+	if omnidriver.can_rotate(pos, node, player) then
+		local handler = omnidriver.modes[mode].handler
+		param2 = handler(pos, node, player, pointed, stack)
+		if not param2 then
+			return stack
+		end
+	else
 		omnidriver.popup(player, S("This node cannot be rotated"))
 		return stack
 	end
-	local handler = omnidriver.modes[mode].handler
-	local new_param2 = handler(pos, node, player, pointed, stack)
-	if new_param2 and new_param2 ~= node.param2 then
-		local rotated = omnidriver.rotate_node(pos, node, player, new_param2)
-		if not rotated then
-			omnidriver.popup(player, S("Unable to rotate node"))
-			return stack
-		end
+	if omnidriver.rotate_node(pos, node, player, param2) then
 		if controls.aux1 then
 			minetest.sound_play("omnidriver_rotate_backward", {pos = pos, to_player = name}, true)
 		else
@@ -59,6 +63,8 @@ function omnidriver.handler(stack, player, pointed)
 		if omnidriver.tool_uses > 0 then
 			stack:add_wear(65535 / omnidriver.tool_uses)
 		end
+	else
+		omnidriver.popup(player, S("Unable to rotate node"))
 	end
 	return stack
 end
