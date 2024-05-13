@@ -4,7 +4,9 @@ local S = omnidriver.translator
 local description = S("Push Edge / Rotate Pointed")
 
 local function raycast_pointed(player, pointed)
-	local pos = player:get_pos()
+	local offset = vector.divide(player:get_eye_offset(), 10)
+	offset = vector.rotate(offset, vector.new(0, player:get_look_horizontal(), 0))
+	local pos = vector.add(player:get_pos(), offset)
 	pos.y = pos.y + player:get_properties().eye_height
 	local dir = vector.multiply(player:get_look_dir(), 10)
 	local raycast = minetest.raycast(pos, vector.add(pos, dir), false)
